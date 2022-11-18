@@ -17,7 +17,7 @@ const registerAndLogin = async (userProps = {}) => {
   const agent = request.agent(app);
   const user = await UserService.create({ ...mockUser, ...userProps });
   const { email } = user;
-  await (await agent.post('/api/v1/users/sessions')).send({ email, password });
+  await agent.post('/api/v1/users/sessions').send({ email, password });
   return [agent, user];
 };
 
@@ -39,9 +39,10 @@ describe('fake-dod routes', () => {
   it('returns the current user', async () => {
     const [agent, user] = await registerAndLogin();
     const me = await agent.get('/api/v1/users/me');
-
+    console.log(user, me.body);
     expect(me.body).toEqual({
       ...user,
+      id: expect.any(String),
       exp: expect.any(Number),
       iat: expect.any(Number),
     });
