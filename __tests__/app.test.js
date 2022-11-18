@@ -57,7 +57,7 @@ describe('fake-dod routes', () => {
     const [agent] = await registerAndLogin();
     const res = await agent.get('/api/v1/secrets');
     expect(res.status).toBe(200);
-    expect(res.body).toMatchInlineSnapshot(`Array []`);
+    expect(res.body).toEqual([]);
   });
   afterAll(() => {
     pool.end();
