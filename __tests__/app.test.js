@@ -53,6 +53,12 @@ describe('fake-dod routes', () => {
       status: 401,
     });
   });
+  it('should GET all secrets if a user is signed in', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent.get('/api/v1/secrets');
+    expect(res.status).toBe(200);
+    expect(res.body).toMatchInlineSnapshot();
+  });
   afterAll(() => {
     pool.end();
   });
