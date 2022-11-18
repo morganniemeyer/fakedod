@@ -39,13 +39,17 @@ describe('fake-dod routes', () => {
   it('returns the current user', async () => {
     const [agent, user] = await registerAndLogin();
     const me = await agent.get('/api/v1/users/me');
-    console.log(user, me.body);
     expect(me.body).toEqual({
       ...user,
-      id: expect.any(String),
       exp: expect.any(Number),
       iat: expect.any(Number),
     });
+  });
+  it('should DELETE the cookie tied to being logged in', async () => {
+    const res = await request(app).delete('');
+    expect(res.status).toBe(200);
+    const getRes = await request(app).get('');
+    expect(getRes.status).toBe(404);
   });
   afterAll(() => {
     pool.end();
