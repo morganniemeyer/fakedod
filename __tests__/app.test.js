@@ -45,11 +45,13 @@ describe('fake-dod routes', () => {
       iat: expect.any(Number),
     });
   });
-  it('should DELETE the cookie tied to being logged in', async () => {
-    const res = await request(app).delete('');
-    expect(res.status).toBe(200);
-    const getRes = await request(app).get('');
-    expect(getRes.status).toBe(404);
+  it('/DELETE should return a 401 error when signed out and trying to view /users', async () => {
+    const res = await request(app).get('/api/v1/users');
+
+    expect(res.body).toEqual({
+      message: 'You must be signed in...',
+      status: 401,
+    });
   });
   afterAll(() => {
     pool.end();
