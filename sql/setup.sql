@@ -18,3 +18,12 @@ CREATE TABLE secrets (
   description TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO secrets (
+  title, description
+)
+VALUES
+('cookies', 'never reveal the secret ingredient'),
+('pie', 'melt the butter'),
+('cake', 'cream the butter'),
+('banana bread', 'melt the butter');
