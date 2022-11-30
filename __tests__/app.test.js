@@ -8,7 +8,7 @@ const UserService = require('../lib/services/userService.js');
 const mockUser = {
   firstName: 'Test',
   lastName: 'User',
-  email: 'test@test2.com',
+  email: 'test@test3.com',
   password: '12345',
 };
 
@@ -57,7 +57,12 @@ describe('fake-dod routes', () => {
     const [agent] = await registerAndLogin();
     const res = await agent.get('/api/v1/secrets');
     expect(res.status).toBe(200);
-    expect(res.body).toEqual([]);
+    expect(res.body[0]).toEqual({
+      id: expect.any(String),
+      title: expect.any(String),
+      description: expect.any(String),
+      created_at: expect.any(String),
+    });
   });
   afterAll(() => {
     pool.end();
